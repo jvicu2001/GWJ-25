@@ -10,3 +10,6 @@ data_*/
 
 # Godot Github Integration ignore
 addons/github-integration
+
+# Compressed Assets
+*.zip

@@ -12,11 +12,11 @@ var desired_size = 1
 func _ready():
 	pass # Replace with function body.
 
-func radius2area(radius):
+func radius2volume(radius):
 	return 4/3 * PI * pow(radius, 3)
 
-func area2radius(area):
-	return pow((3/(4*PI)*area), 1/3)
+func volume2radius(volume):
+	return pow((3/(4*PI)*volume), 1/3)
 
 func _input(event):
 	mov_input = Vector2(Input.get_action_strength("player_right")
@@ -27,7 +27,7 @@ func _input(event):
 
 func pickup(item):
 	if item.size < $CollisionShape.scale.x:
-		desired_size += area2radius(item.area)
+		desired_size += volume2radius(item.volume)
 #		$CollisionShape.scale += item.size*Vector3.ONE
 		item.queue_free()
 		

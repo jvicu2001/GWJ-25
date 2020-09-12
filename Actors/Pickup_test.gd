@@ -5,7 +5,7 @@ extends KinematicBody
 # var a = 2
 # var b = "text"
 var size
-var area
+var volume
 
 var velocity = Vector3()
 
@@ -15,7 +15,7 @@ var velocity = Vector3()
 func _ready():
 	randomize()
 	size = rand_range(0.5, 2.0)
-	area = 4/3 * PI * pow(size, 3)
+	volume = 4/3 * PI * pow(size, 3)
 	self.scale = size * Vector3(1, 1, 1)
 	pass # Replace with function body.
 
