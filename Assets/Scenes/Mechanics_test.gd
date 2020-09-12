@@ -17,5 +17,6 @@ func _process(delta):
 	velocity = $Ball/BallBody.get_linear_velocity()
 	$Label.text = 	"x: " + str(velocity.x) +\
 					"\ny: " + str(velocity.y) +\
-					"\nz: " + str(velocity.z)
+					"\nz: " + str(velocity.z) +\
+					"\n\nFPS:" + str(1/delta)
 	pass
