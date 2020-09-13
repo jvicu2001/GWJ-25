@@ -23,11 +23,6 @@ func _input(event):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-#	ball_radius = clamp(ball_radius + (10*ball_size_change * delta), 0.2, 100)
-#	var current_radius = ball_shape.scale.x
-#	if ball_radius != current_radius:
-#		var size_lerp = lerp(current_radius, ball_radius, 0.2)
-#		ball_shape.scale = Vector3.ONE*size_lerp
 	pass
 
 func _physics_process(delta):

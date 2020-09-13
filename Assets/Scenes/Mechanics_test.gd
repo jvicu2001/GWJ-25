@@ -18,5 +18,6 @@ func _process(delta):
 	$Label.text = 	"x: " + str(velocity.x) +\
 					"\ny: " + str(velocity.y) +\
 					"\nz: " + str(velocity.z) +\
-					"\n\nFPS:" + str(1/delta)
+					"\n\nFPS:" + str(1/delta) +\
+					"\n\nBall radius: " + str($Ball/BallBody/CollisionShape.scale.x)
 	pass
