@@ -13,3 +13,6 @@ addons/github-integration
 
 # Compressed Assets
 *.zip
+
+# Blender files
+Assets/Blender
