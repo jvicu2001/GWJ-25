@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Actors/Ball_Player.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Ball_Camera.gd" type="Script" id=2]
@@ -10,6 +10,11 @@
 
 [sub_resource type="SphereMesh" id=2]
 material = ExtResource( 3 )
+
+[sub_resource type="CylinderMesh" id=3]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 11.146
 
 [node name="Ball" type="Spatial"]
 script = ExtResource( 5 )
@@ -28,6 +33,13 @@ shape = SubResource( 1 )
 mesh = SubResource( 2 )
 material/0 = null
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 4, 5 )
+[node name="Camera Container" type="Spatial" parent="."]
 script = ExtResource( 2 )
+
+[node name="Camera" type="Camera" parent="Camera Container"]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 2, 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Camera Container"]
+visible = false
+mesh = SubResource( 3 )
+material/0 = null

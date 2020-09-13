@@ -7,6 +7,8 @@ extends RigidBody
 var mov_input = Vector2()
 var desired_size = 1
 
+var mov_angle = 0
+
 onready var volume = radius2volume($CollisionShape.scale.x)
 
 
@@ -14,11 +16,18 @@ onready var volume = radius2volume($CollisionShape.scale.x)
 func _ready():
 	pass # Replace with function body.
 
+
+# Simple functions to get the volume of the ball from the radius and viceversa
 func radius2volume(radius):
 	return 4.0/3.0 * PI * pow(radius, 3)
 
 func volume2radius(volume):
 	return pow((3.0/(4.0*PI))*volume, 1/3.0)
+
+# Function to orbit the camera around the center and to rotate the player
+# camera accordingly
+func rot_matrix_y(vector, angle):
+	return Vector3(vector.x*cos(angle) -vector.z*sin(angle), vector.y, vector.x*sin(angle) + vector.z*cos(angle))
 
 func _input(event):
 	mov_input = Vector2(Input.get_action_strength("player_right")
@@ -26,7 +35,8 @@ func _input(event):
 						Input.get_action_strength("player_backwards")
 						- Input.get_action_strength("player_forward"))
 
-
+# Triggered by the item to be picked up
+# If it's smaller than the ball, it's absorbed
 func pickup(item):
 	if item.size < $CollisionShape.scale.x:
 		desired_size = volume2radius(item.volume + self.volume)
@@ -35,6 +45,7 @@ func pickup(item):
 		
 	pass
 
+# lerp the ball size between the actual one and the goal size
 func resize():
 	if abs($CollisionShape.scale.x - desired_size) > 0.01:
 		$CollisionShape.scale = lerp($CollisionShape.scale, desired_size*Vector3.ONE, 0.2)
@@ -48,7 +59,7 @@ func _process(delta):
 func _physics_process(delta):
 	if mov_input != Vector2():
 		self.angular_damp = 0.0
-		add_central_force(8*Vector3(mov_input.x, 0, mov_input.y))
+		add_central_force(8*rot_matrix_y(Vector3(mov_input.x, 0, mov_input.y), mov_angle))
 	else:
 		self.angular_damp = 0.999999
 	pass
