@@ -21,8 +21,8 @@ func _ready():
 func radius2volume(radius):
 	return 4.0/3.0 * PI * pow(radius, 3)
 
-func volume2radius(volume):
-	return pow((3.0/(4.0*PI))*volume, 1/3.0)
+func volume2radius(vol):
+	return pow((3.0/(4.0*PI))*vol, 1/3.0)
 
 # Function to orbit the camera around the center and to rotate the player
 # camera accordingly
@@ -39,7 +39,8 @@ func _input(event):
 # If it's smaller than the ball, it's absorbed
 func pickup(item):
 	if item.size < $CollisionShape.scale.x:
-		desired_size = volume2radius(item.volume + self.volume)
+		self.volume += item.volume
+		desired_size = volume2radius(self.volume)
 #		$CollisionShape.scale += item.size*Vector3.ONE
 		item.queue_free()
 		

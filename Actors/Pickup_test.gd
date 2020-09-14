@@ -14,8 +14,8 @@ var velocity = Vector3()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-	size = rand_range(0.5, 2.0)
-	volume = 4/3 * PI * pow(size, 3)
+	size = rand_range(0.1, 0.2)
+	volume = 4.0/3.0 * PI * pow(size, 3.0)
 	self.scale = size * Vector3(1, 1, 1)
 	pass # Replace with function body.
 
