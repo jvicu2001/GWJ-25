@@ -36,6 +36,8 @@ func check_conditions_met(condition):
 		"collecting":
 			if pickups.pickups_depleted():
 				conditions[condition] = true
+				$AnimationPlayer.play("intro_05")
+				current_condition = ""
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -54,4 +56,9 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			buffer_angle = ball.mov_angle
 			current_condition = "looking"
 		"intro_04":
-			current_condition = "collection"
+			current_condition = "collecting"
+
+
+func _on_Exit_Trigger_body_exited(body):
+	if body.is_in_group("player"):
+		$AnimationPlayer.play("intro_exit")

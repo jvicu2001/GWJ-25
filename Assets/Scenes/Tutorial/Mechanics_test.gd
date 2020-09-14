@@ -27,6 +27,9 @@ func _process(delta):
 					"\n\nCamera angle: " + str($Ball/BallBody.mov_angle)
 	pass
 
+func remove_barrier():
+	$Magic_Barrier.queue_free()
+
 
 func _on_Ball_ready():
 	$Ball.ball_radius = initial_ball_size
