@@ -20,6 +20,7 @@ func _process(delta):
 	$Label.text = 	"x: " + str(velocity.x) +\
 					"\ny: " + str(velocity.y) +\
 					"\nz: " + str(velocity.z) +\
+					"\nvelocity: " + str(velocity.length()) +\
 					"\n\nFPS:" + str(1/delta) +\
 					"\n\nBall radius: " + str($Ball/BallBody/CollisionShape.scale.x) +\
 					"\n\nCamera angle: " + str($Ball/BallBody.mov_angle)

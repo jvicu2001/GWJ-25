@@ -19,8 +19,11 @@ func _ready():
 
 func _input(event):
 	if event is InputEventMouseMotion && Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		ball_offset = rot_matrix_y(ball_offset, event.relative.x/40.0)
+#		ball_offset = rot_matrix_y(ball_offset, event.relative.x/40.0)
 		ball.mov_angle = fmod(ball.mov_angle + event.relative.x/40.0, 2.0*PI)
+
+		
+		
 
 
 func rot_matrix_y(vector, angle):
@@ -43,6 +46,10 @@ func follow_ball():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	cam_mode_check()
+	if Input.is_action_pressed("player_camera_left") || Input.is_action_pressed("player_camera_right"):
+		var cam_pan = Input.get_action_strength("player_camera_right") - Input.get_action_strength("player_camera_left")
+		ball.mov_angle = fmod(ball.mov_angle + cam_pan/20.0, 2.0*PI)
+	ball_offset = rot_matrix_y(ball_base_offset, ball.mov_angle)
 	follow_ball()
 	$Camera.look_at(ball.global_transform.origin, Vector3.UP)
 	pass

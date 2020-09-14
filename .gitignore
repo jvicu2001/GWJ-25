@@ -19,3 +19,6 @@ Assets/Blender/
 
 # Builds files ignore
 Builds/
+
+# Exclude pdn files
+*.pdn
