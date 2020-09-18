@@ -8,5 +8,10 @@ ground_bottom_color = Color( 0.423529, 0.619608, 0.690196, 1 )
 [resource]
 background_mode = 2
 background_sky = SubResource( 1 )
-fog_depth_begin = 72.5
-fog_depth_end = 475.0
+fog_enabled = true
+fog_color = Color( 0.72549, 0.447059, 0.2, 1 )
+fog_depth_begin = 200.0
+fog_depth_end = 500.0
+fog_height_enabled = true
+fog_height_min = 40.6
+fog_height_max = 216.3

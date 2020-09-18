@@ -1,10 +1,9 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Assets/Scenes/World_size_01/Heightmap_data_01/data.hterrain" type="Resource" id=1]
 [ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Scenes/World_size_01/Game World.gd" type="Script" id=3]
 [ext_resource path="res://Actors/Ball.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Actors/Pickups/house_s_01.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/Textures/MagicBarrier/magicbarrier_material.material" type="Material" id=6]
 [ext_resource path="res://Assets/Scenes/World_size_01/game_environment.tres" type="Environment" id=7]
 [ext_resource path="res://Actors/Pickups/tree_01.tscn" type="PackedScene" id=8]
@@ -245,11 +244,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -151.479, 3.14841, -101.63 )
 
 [node name="Tree9" parent="Trees" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -139.702, 3.14841, -117.978 )
-
-[node name="Houses" type="Spatial" parent="."]
-
-[node name="House" parent="Houses" instance=ExtResource( 5 )]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 138.351, 5.33991, -78.4063 )
 
 [node name="Light God" type="DirectionalLight" parent="."]
 transform = Transform( 0.999591, 0.00572126, -0.0280263, 0.0165397, -0.914997, 0.403121, -0.0233377, -0.40342, -0.914717, 0, 1.7931, 0 )

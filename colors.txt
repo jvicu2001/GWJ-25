@@ -3,3 +3,4 @@ sand e1ce08
 stone b0baab
 dirt 655a03
 water 1F81F4
+snow d0f4fe
