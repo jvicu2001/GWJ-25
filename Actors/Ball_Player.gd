@@ -9,6 +9,8 @@ var desired_size = 1
 
 var mov_angle = 0
 
+var floor_ray_dist = 0.2
+
 onready var volume = radius2volume($CollisionShape.scale.x)
 
 
@@ -38,12 +40,12 @@ func _input(event):
 # Triggered by the item to be picked up
 # If it's smaller than the ball, it's absorbed
 func pickup(item):
-	if item.size < $CollisionShape.scale.x:
+	if item.volume < self.volume:
 		self.volume += item.volume
 		desired_size = volume2radius(self.volume)
+		self.mass = self.volume
 #		$CollisionShape.scale += item.size*Vector3.ONE
 		item.queue_free()
-		
 	pass
 
 # lerp the ball size between the actual one and the goal size
@@ -61,10 +63,20 @@ func _physics_process(delta):
 	if mov_input != Vector2():
 		self.angular_damp = 0.1
 		var rotated_mov = rot_matrix_y(Vector3(mov_input.x, 0, mov_input.y), mov_angle)
-		add_central_force(8*rotated_mov)
+		add_central_force(8*rotated_mov*self.mass)
 #		if !Input.is_action_pressed("camera_mode"):
 #			print(Vector2(self.linear_velocity.x, self.linear_velocity.z).normalized().angle_to(Vector2(rotated_mov.x, rotated_mov.z)))
 #			self.mov_angle = fmod(self.mov_angle + Vector2(self.linear_velocity.x, self.linear_velocity.z).normalized().angle_to(Vector2(rotated_mov.x, rotated_mov.z)), 2.0*PI)
 	else:
 		self.angular_damp = 0.999999
+	var floor_ray = get_world().direct_space_state.intersect_ray(
+		self.global_transform.origin,
+		self.global_transform.origin + Vector3.DOWN*($CollisionShape.scale.x + floor_ray_dist),
+		[self]
+	)
+	if Input.is_action_pressed("player_brake") && !floor_ray.empty():
+		print("aaa")
+		self.linear_damp = 1
+	else:
+		self.linear_damp = 0
 	pass

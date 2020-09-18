@@ -1,0 +1,271 @@
+[gd_scene load_steps=34 format=2]
+
+[ext_resource path="res://Assets/Scenes/World_size_01/Heightmap_data_01/data.hterrain" type="Resource" id=1]
+[ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Scenes/World_size_01/Game World.gd" type="Script" id=3]
+[ext_resource path="res://Actors/Ball.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Actors/Pickups/house_s_01.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Textures/MagicBarrier/magicbarrier_material.material" type="Material" id=6]
+[ext_resource path="res://Assets/Scenes/World_size_01/game_environment.tres" type="Environment" id=7]
+[ext_resource path="res://Actors/Pickups/tree_01.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Actors/Pickup.tscn" type="PackedScene" id=9]
+
+[sub_resource type="VisualShaderNodeColorConstant" id=6]
+constant = Color( 0.121569, 0.505882, 0.956863, 0.447059 )
+
+[sub_resource type="VisualShaderNodeInput" id=25]
+input_name = "screen_uv"
+
+[sub_resource type="VisualShaderNodeVectorInterp" id=26]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=19]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=20]
+
+[sub_resource type="VisualShaderNodeScalarFunc" id=21]
+function = 1
+
+[sub_resource type="VisualShaderNodeScalarOp" id=22]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=23]
+default_input_values = [ 0, 0.0, 1, 5.0 ]
+operator = 3
+
+[sub_resource type="VisualShaderNodeInput" id=7]
+input_name = "vertex"
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id=8]
+
+[sub_resource type="VisualShaderNodeScalarFunc" id=9]
+function = 0
+
+[sub_resource type="VisualShaderNodeVectorCompose" id=10]
+
+[sub_resource type="OpenSimplexNoise" id=11]
+seed = 69
+
+[sub_resource type="NoiseTexture" id=12]
+seamless = true
+noise = SubResource( 11 )
+
+[sub_resource type="VisualShaderNodeTexture" id=13]
+texture = SubResource( 12 )
+
+[sub_resource type="OpenSimplexNoise" id=14]
+seed = 69
+
+[sub_resource type="NoiseTexture" id=15]
+seamless = true
+as_normalmap = true
+noise = SubResource( 14 )
+
+[sub_resource type="VisualShaderNodeTexture" id=16]
+texture = SubResource( 15 )
+
+[sub_resource type="VisualShaderNodeInput" id=24]
+input_name = "time"
+
+[sub_resource type="VisualShader" id=17]
+code = "shader_type spatial;
+render_mode cull_disabled;
+
+
+
+
+void vertex() {
+// Input:3
+	vec3 n_out3p0 = VERTEX;
+
+// VectorDecompose:4
+	float n_out4p0 = n_out3p0.x;
+	float n_out4p1 = n_out3p0.y;
+	float n_out4p2 = n_out3p0.z;
+
+// Input:9
+	float n_out9p0 = TIME;
+
+// ScalarOp:10
+	float n_out10p0 = n_out9p0 + n_out4p0;
+
+// ScalarFunc:5
+	float n_out5p0 = sin(n_out10p0);
+
+// ScalarOp:11
+	float n_out11p0 = n_out4p2 + n_out9p0;
+
+// ScalarFunc:12
+	float n_out12p0 = cos(n_out11p0);
+
+// ScalarOp:13
+	float n_out13p0 = n_out5p0 + n_out12p0;
+
+// ScalarOp:14
+	float n_in14p1 = 5.00000;
+	float n_out14p0 = n_out13p0 / n_in14p1;
+
+// VectorCompose:6
+	vec3 n_out6p0 = vec3(n_out4p0, n_out14p0, n_out4p2);
+
+// Output:0
+	VERTEX = n_out6p0;
+
+}
+
+void fragment() {
+// Color:2
+	vec3 n_out2p0 = vec3(0.121569, 0.505882, 0.956863);
+	float n_out2p1 = 0.447059;
+
+// Input:3
+	vec3 n_out3p0 = vec3(SCREEN_UV, 0.0);
+
+// VectorMix:4
+	vec3 n_in4p2 = vec3(0.50000, 0.50000, 0.50000);
+	vec3 n_out4p0 = mix(n_out2p0, n_out3p0, n_in4p2);
+
+// Output:0
+	ALBEDO = n_out4p0;
+	ALPHA = n_out2p1;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -636.212, -115.974 )
+modes/cull = 2
+nodes/vertex/0/position = Vector2( 400, 0 )
+nodes/vertex/3/node = SubResource( 7 )
+nodes/vertex/3/position = Vector2( -580, -20 )
+nodes/vertex/4/node = SubResource( 8 )
+nodes/vertex/4/position = Vector2( -420, -20 )
+nodes/vertex/5/node = SubResource( 9 )
+nodes/vertex/5/position = Vector2( -20, -180 )
+nodes/vertex/6/node = SubResource( 10 )
+nodes/vertex/6/position = Vector2( 140, 0 )
+nodes/vertex/7/node = SubResource( 13 )
+nodes/vertex/7/position = Vector2( -600, -600 )
+nodes/vertex/8/node = SubResource( 16 )
+nodes/vertex/8/position = Vector2( -200, -600 )
+nodes/vertex/9/node = SubResource( 24 )
+nodes/vertex/9/position = Vector2( -420, -240 )
+nodes/vertex/10/node = SubResource( 19 )
+nodes/vertex/10/position = Vector2( -160, -200 )
+nodes/vertex/11/node = SubResource( 20 )
+nodes/vertex/11/position = Vector2( -140, 140 )
+nodes/vertex/12/node = SubResource( 21 )
+nodes/vertex/12/position = Vector2( 40, 160 )
+nodes/vertex/13/node = SubResource( 22 )
+nodes/vertex/13/position = Vector2( -160, -20 )
+nodes/vertex/14/node = SubResource( 23 )
+nodes/vertex/14/position = Vector2( -20, 0 )
+nodes/vertex/connections = PoolIntArray( 3, 0, 4, 0, 4, 0, 6, 0, 4, 2, 6, 2, 6, 0, 0, 0, 9, 0, 10, 0, 4, 0, 10, 1, 10, 0, 5, 0, 9, 0, 11, 1, 4, 2, 11, 0, 11, 0, 12, 0, 12, 0, 13, 1, 5, 0, 13, 0, 13, 0, 14, 0, 14, 0, 6, 1 )
+nodes/fragment/2/node = SubResource( 6 )
+nodes/fragment/2/position = Vector2( -320, -40 )
+nodes/fragment/3/node = SubResource( 25 )
+nodes/fragment/3/position = Vector2( -500, 100 )
+nodes/fragment/4/node = SubResource( 26 )
+nodes/fragment/4/position = Vector2( -180, 100 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 4, 0, 3, 0, 4, 1, 4, 0, 0, 0, 2, 1, 0, 1 )
+
+[sub_resource type="ShaderMaterial" id=18]
+shader = SubResource( 17 )
+
+[sub_resource type="PlaneMesh" id=1]
+material = SubResource( 18 )
+size = Vector2( 1024, 1024 )
+subdivide_width = 200
+subdivide_depth = 200
+
+[sub_resource type="CubeMesh" id=4]
+material = ExtResource( 6 )
+flip_faces = true
+size = Vector3( 1024, 1024, 1024 )
+
+[sub_resource type="ConcavePolygonShape" id=5]
+data = PoolVector3Array( 512, 512, 512, -512, 512, 512, -512, -512, 512, 512, -512, 512, 512, 512, 512, -512, -512, 512, -512, 512, -512, 512, 512, -512, 512, -512, -512, -512, -512, -512, -512, 512, -512, 512, -512, -512, 512, 512, -512, 512, 512, 512, 512, -512, 512, 512, -512, -512, 512, 512, -512, 512, -512, 512, -512, 512, 512, -512, 512, -512, -512, -512, -512, -512, -512, 512, -512, 512, 512, -512, -512, -512, -512, 512, 512, 512, 512, 512, 512, 512, -512, -512, 512, -512, -512, 512, 512, 512, 512, -512, 512, -512, 512, -512, -512, 512, -512, -512, -512, 512, -512, -512, 512, -512, 512, -512, -512, -512 )
+
+[node name="Level Container" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="Terrain" type="Spatial" parent="."]
+
+[node name="HTerrain01" type="Spatial" parent="Terrain"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -512, 0, -512 )
+script = ExtResource( 2 )
+lod_scale = 2.0
+map_scale = Vector3( 2, 1, 2 )
+_terrain_data = ExtResource( 1 )
+chunk_size = 32
+shader_type = "LowPoly"
+custom_shader = null
+ground/albedo_bump_0 = null
+ground/normal_roughness_0 = null
+ground/albedo_bump_1 = null
+ground/normal_roughness_1 = null
+ground/albedo_bump_2 = null
+ground/normal_roughness_2 = null
+ground/albedo_bump_3 = null
+ground/normal_roughness_3 = null
+
+[node name="Water01" type="MeshInstance" parent="Terrain"]
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="Ball" parent="." instance=ExtResource( 4 )]
+transform = Transform( -0.72794, 0, -0.68564, 0, 1, 0, 0.68564, 0, -0.72794, -114.107, 54.7137, -85.3466 )
+
+[node name="Trees" type="Spatial" parent="."]
+
+[node name="Tree" parent="Trees" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -118.532, 12.4896, -99.7581 )
+
+[node name="Tree2" parent="Trees" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -130.38, 9.66029, -90.7632 )
+
+[node name="Tree3" parent="Trees" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -130.628, 8.97072, -100.606 )
+
+[node name="Tree4" parent="Trees" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -146.507, 4.58729, -97.2295 )
+
+[node name="Tree5" parent="Trees" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -155.242, 3.38438, -96.1675 )
+
+[node name="Tree6" parent="Trees" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -171.668, 2.82323, -86.5362 )
+
+[node name="Tree7" parent="Trees" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -162.683, 3.02275, -89.8034 )
+
+[node name="Tree8" parent="Trees" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -151.479, 3.14841, -101.63 )
+
+[node name="Tree9" parent="Trees" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -139.702, 3.14841, -117.978 )
+
+[node name="Houses" type="Spatial" parent="."]
+
+[node name="House" parent="Houses" instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 138.351, 5.33991, -78.4063 )
+
+[node name="Light God" type="DirectionalLight" parent="."]
+transform = Transform( 0.999591, 0.00572126, -0.0280263, 0.0165397, -0.914997, 0.403121, -0.0233377, -0.40342, -0.914717, 0, 1.7931, 0 )
+
+[node name="Pickup_Object" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.89726, 23.9086, 26.8787 )
+
+[node name="World Border" type="StaticBody" parent="."]
+
+[node name="MeshInstance" type="MeshInstance" parent="World Border"]
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="World Border"]
+shape = SubResource( 5 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 7 )
+[connection signal="ready" from="Ball" to="." method="_on_Ball_ready"]

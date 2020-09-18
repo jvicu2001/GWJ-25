@@ -57,6 +57,8 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			current_condition = "looking"
 		"intro_04":
 			current_condition = "collecting"
+		"intro_exit":
+			get_parent().level_change()
 
 
 func _on_Exit_Trigger_body_exited(body):

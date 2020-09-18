@@ -1,20 +1,20 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Actors/Ball_Player.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Ball_Camera.gd" type="Script" id=2]
-[ext_resource path="res://Actors/Ball/Ball_material.material" type="Material" id=3]
-[ext_resource path="res://Actors/Ball/ball_physicsmaterial.phymat" type="PhysicsMaterial" id=4]
+[ext_resource path="res://Assets/Materials/Ball/Normal/ball_normal.material" type="Material" id=3]
+[ext_resource path="res://Assets/Materials/Ball/Normal/ball_normal.phymat" type="PhysicsMaterial" id=4]
 [ext_resource path="res://Actors/Ball.gd" type="Script" id=5]
+[ext_resource path="res://Assets/Textures/floor_tiles_06_1k_jpg/floor_tiles_06_diff_1k.jpg" type="Texture" id=6]
+[ext_resource path="res://Assets/Materials/Water/underwater_shader.tres" type="Shader" id=7]
 
 [sub_resource type="SphereShape" id=1]
 
 [sub_resource type="SphereMesh" id=2]
 material = ExtResource( 3 )
 
-[sub_resource type="CylinderMesh" id=3]
-top_radius = 0.2
-bottom_radius = 0.2
-height = 11.146
+[sub_resource type="ShaderMaterial" id=25]
+shader = ExtResource( 7 )
 
 [node name="Ball" type="Spatial"]
 script = ExtResource( 5 )
@@ -22,6 +22,8 @@ script = ExtResource( 5 )
 [node name="BallBody" type="RigidBody" parent="." groups=[
 "player",
 ]]
+input_ray_pickable = false
+collision_mask = 7
 physics_material_override = ExtResource( 4 )
 angular_damp = 0.0
 script = ExtResource( 1 )
@@ -38,8 +40,19 @@ script = ExtResource( 2 )
 
 [node name="Camera" type="Camera" parent="Camera Container"]
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 2, 5 )
+far = 2000.0
 
-[node name="MeshInstance" type="MeshInstance" parent="Camera Container"]
+[node name="TextureRect" type="TextureRect" parent="Camera Container"]
 visible = false
-mesh = SubResource( 3 )
-material/0 = null
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 424.0
+texture = ExtResource( 6 )
+
+[node name="ColorRect" type="ColorRect" parent="Camera Container"]
+material = SubResource( 25 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

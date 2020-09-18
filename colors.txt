@@ -1,0 +1,5 @@
+grass 37d12a
+sand e1ce08
+stone b0baab
+dirt 655a03
+water 1F81F4

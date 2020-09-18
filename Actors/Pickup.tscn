@@ -1,13 +1,15 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Actors/Pickup.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Pickup_test.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Materials/Tutorial/Orb.material" type="Material" id=3]
 
 [sub_resource type="BoxShape" id=1]
 
 [sub_resource type="SphereMesh" id=2]
+material = ExtResource( 3 )
 radial_segments = 8
-rings = 4
+rings = 5
 
 [sub_resource type="SphereShape" id=3]
 

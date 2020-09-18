@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/arm_bone.obj-1f9c2090d82cfaa425703148be406405.mesh"
+
+[deps]
+
+files=[ "res://.import/arm_bone.obj-1f9c2090d82cfaa425703148be406405.mesh" ]
+
+source_file="res://Assets/Objects/Bones/arm_bone.obj"
+dest_files=[ "res://.import/arm_bone.obj-1f9c2090d82cfaa425703148be406405.mesh", "res://.import/arm_bone.obj-1f9c2090d82cfaa425703148be406405.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

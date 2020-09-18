@@ -31,8 +31,13 @@ func remove_barrier():
 	$Magic_Barrier.queue_free()
 
 
+func level_change():
+	get_parent().change_to_game()
+
+
 func _on_Ball_ready():
 	$Ball.ball_radius = initial_ball_size
 	$Ball/BallBody.desired_size = initial_ball_size
 	$Ball/BallBody.volume = $Ball/BallBody.radius2volume(initial_ball_size)
+	$Ball/BallBody.mass = $Ball/BallBody.volume
 	$Ball/BallBody/CollisionShape.scale = initial_ball_size * Vector3.ONE

@@ -5,6 +5,7 @@ extends Spatial
 # var a = 2
 # var b = "text"
 onready var ball = get_node("../BallBody")
+onready var ball_collision = ball.get_node("CollisionShape")
 
 #var ball_offset = Vector3(0, 4, 5)
 var ball_base_offset = Vector3(0, 4, 10)
@@ -20,7 +21,7 @@ func _ready():
 func _input(event):
 	if event is InputEventMouseMotion && Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 #		ball_offset = rot_matrix_y(ball_offset, event.relative.x/40.0)
-		ball.mov_angle = fmod(ball.mov_angle + event.relative.x/40.0, 2.0*PI)
+		ball.mov_angle = fmod(ball.mov_angle + event.relative.x/80.0, 2.0*PI)
 
 		
 		
@@ -40,8 +41,22 @@ func cam_mode_check():
 func follow_ball():
 	self.global_transform.origin = ball.global_transform.origin#\
 	 #+ (ball_offset * ball.get_node("CollisionShape").scale.x)
-	$Camera.global_transform.origin = self.global_transform.origin \
-	+ ball_offset * ball.get_node("CollisionShape").scale.x
+	var camera_ray = get_world().direct_space_state.intersect_ray(
+		self.global_transform.origin,
+		self.global_transform.origin + ball_offset * ball_collision.scale.x,
+		[self]
+	)
+	if !camera_ray.empty():
+		$Camera.global_transform.origin = camera_ray.position
+	else:
+		$Camera.global_transform.origin = self.global_transform.origin \
+		+ ball_offset * ball_collision.scale.x
+	
+	if $Camera.global_transform.origin.y < 0:
+		$ColorRect.color = Color.white
+	else:
+		$ColorRect.color = Color(0.0,0.0,0.0,0.0)
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
