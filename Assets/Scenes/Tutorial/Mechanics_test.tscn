@@ -397,7 +397,7 @@ data = PoolVector3Array( 6.8612, 100, 69.6629, 0, 100, 70, 0, 60, 70, 6.8612, 60
 [sub_resource type="BoxShape" id=14]
 extents = Vector3( 100, 100, 100 )
 
-[node name="Level Container" type="Spatial"]
+[node name="Tutorial" type="Spatial"]
 script = ExtResource( 1 )
 
 [node name="Control" type="ColorRect" parent="."]

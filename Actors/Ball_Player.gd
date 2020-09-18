@@ -75,7 +75,6 @@ func _physics_process(delta):
 		[self]
 	)
 	if Input.is_action_pressed("player_brake") && !floor_ray.empty():
-		print("aaa")
 		self.linear_damp = 1
 	else:
 		self.linear_damp = 0
