@@ -5,7 +5,7 @@ extends Spatial
 # var a = 2
 # var b = "text"
 
-const initial_ball_size = 1
+const initial_ball_size = 0.1
 onready var music = preload("res://Assets/Music/Game_base.wav")
 
 

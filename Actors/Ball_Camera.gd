@@ -29,14 +29,12 @@ func _ready():
 	pass # Replace with function body.
 
 func _input(event):
-	v_look = (Input.get_action_strength("player_camera_down")- Input.get_action_strength("player_camera_up"))/2
+	v_look = (- Input.get_action_strength("player_camera_down") + Input.get_action_strength("player_camera_up"))/2
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED && event is InputEventMouseMotion:
 		ball.mov_angle = fmod(ball.mov_angle + event.relative.x/80.0, 2.0*PI)
 #		self.yaw_angle = lerp(self.yaw_angle, clamp(self.yaw_angle - event.relative.y/80.0, -1.4, 1.4), 0.2)
 		self.yaw_angle = lerp(self.yaw_angle, clamp(self.yaw_angle - event.relative.y/80.0, -0.875, 0.125), 0.2)
-		return
-	
-	self.yaw_angle = lerp(self.yaw_angle, clamp(self.yaw_angle - (v_look/2),-0.875, 0.125), 0.2)
+
 
 
 
@@ -67,14 +65,16 @@ func follow_ball():
 	
 	self.camera_distance = self.global_transform.origin.distance_to($Camera.global_transform.origin)
 	
-	if $Camera.global_transform.origin.y < 0:
+	if $Camera.global_transform.origin.y < 0 && self.owner.get_parent().name == "Level":
 		$ColorRect.visible = true
 	else:
 		$ColorRect.visible = false
 
 
 func get_yaw_angle():
-	if Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED && v_look == 0.0:
+	if v_look != 0.0:
+		self.yaw_angle = lerp(self.yaw_angle, v_look + self.yaw_base_angle, 0.2)
+	elif Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED && v_look == 0.0:
 		self.yaw_angle = lerp(self.yaw_angle, self.yaw_base_angle, 0.2)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -89,8 +89,6 @@ func _process(delta):
 	var front_of_camera = ball.global_transform.origin*Vector3(1,0,1) + Vector3(0, $Camera.global_transform.origin.y, 0)
 #	$Camera.look_at(ball.global_transform.origin, Vector3.UP)
 #	print((front_of_camera + tan(yaw_angle)*Vector3.UP).y - ball.global_transform.origin.y)
-#	print(yaw_angle)
-	print(v_look)
 	$Camera.look_at(front_of_camera + tan(yaw_angle)*Vector3.UP*camera_distance, Vector3.UP)
 	
 	pass

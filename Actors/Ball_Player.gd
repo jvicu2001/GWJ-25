@@ -63,7 +63,7 @@ func _physics_process(delta):
 	if mov_input != Vector2():
 		self.angular_damp = 0.1
 		var rotated_mov = rot_matrix_y(Vector3(mov_input.x, 0, mov_input.y), mov_angle)
-		add_central_force(8*rotated_mov*self.mass)
+		add_central_force(10*rotated_mov*self.mass)
 #		if !Input.is_action_pressed("camera_mode"):
 #			print(Vector2(self.linear_velocity.x, self.linear_velocity.z).normalized().angle_to(Vector2(rotated_mov.x, rotated_mov.z)))
 #			self.mov_angle = fmod(self.mov_angle + Vector2(self.linear_velocity.x, self.linear_velocity.z).normalized().angle_to(Vector2(rotated_mov.x, rotated_mov.z)), 2.0*PI)
@@ -75,7 +75,7 @@ func _physics_process(delta):
 		[self]
 	)
 	if Input.is_action_pressed("player_brake") && !floor_ray.empty():
-		self.linear_damp = 1
+		self.linear_damp = 0.99999
 	else:
 		self.linear_damp = 0
 	pass

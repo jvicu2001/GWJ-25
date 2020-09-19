@@ -4,13 +4,13 @@
 [ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Scenes/World_size_01/Game World.gd" type="Script" id=3]
 [ext_resource path="res://Actors/Ball.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Assets/Textures/MagicBarrier/magicbarrier_material.material" type="Material" id=6]
+[ext_resource path="res://Assets/Objects/Trees/Trees_spawner.gd" type="Script" id=5]
+[ext_resource path="res://Assets/Textures/MagicBarrier/magicbarrier_material_shader.material" type="Material" id=6]
 [ext_resource path="res://Assets/Scenes/World_size_01/game_environment.tres" type="Environment" id=7]
-[ext_resource path="res://Actors/Pickups/tree_01.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Actors/Pickup.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/Objects/Bones/BoneSpawner.gd" type="Script" id=8]
 
 [sub_resource type="VisualShaderNodeColorConstant" id=6]
-constant = Color( 0.121569, 0.505882, 0.956863, 0.447059 )
+constant = Color( 0.121569, 0.505882, 0.956863, 0.890196 )
 
 [sub_resource type="VisualShaderNodeInput" id=25]
 input_name = "screen_uv"
@@ -113,7 +113,7 @@ void vertex() {
 void fragment() {
 // Color:2
 	vec3 n_out2p0 = vec3(0.121569, 0.505882, 0.956863);
-	float n_out2p1 = 0.447059;
+	float n_out2p1 = 0.890196;
 
 // Input:3
 	vec3 n_out3p0 = vec3(SCREEN_UV, 0.0);
@@ -133,7 +133,7 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -636.212, -115.974 )
+graph_offset = Vector2( -660.212, -214.75 )
 modes/cull = 2
 nodes/vertex/0/position = Vector2( 400, 0 )
 nodes/vertex/3/node = SubResource( 7 )
@@ -183,10 +183,10 @@ material = ExtResource( 6 )
 flip_faces = true
 size = Vector3( 1024, 1024, 1024 )
 
-[sub_resource type="ConcavePolygonShape" id=5]
+[sub_resource type="ConcavePolygonShape" id=27]
 data = PoolVector3Array( 512, 512, 512, -512, 512, 512, -512, -512, 512, 512, -512, 512, 512, 512, 512, -512, -512, 512, -512, 512, -512, 512, 512, -512, 512, -512, -512, -512, -512, -512, -512, 512, -512, 512, -512, -512, 512, 512, -512, 512, 512, 512, 512, -512, 512, 512, -512, -512, 512, 512, -512, 512, -512, 512, -512, 512, 512, -512, 512, -512, -512, -512, -512, -512, -512, 512, -512, 512, 512, -512, -512, -512, -512, 512, 512, 512, 512, 512, 512, 512, -512, -512, 512, -512, -512, 512, 512, 512, 512, -512, 512, -512, 512, -512, -512, 512, -512, -512, -512, 512, -512, -512, 512, -512, 512, -512, -512, -512 )
 
-[node name="Level Container" type="Spatial"]
+[node name="Level" type="Spatial"]
 script = ExtResource( 3 )
 
 [node name="Terrain" type="Spatial" parent="."]
@@ -194,7 +194,6 @@ script = ExtResource( 3 )
 [node name="HTerrain01" type="Spatial" parent="Terrain"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -512, 0, -512 )
 script = ExtResource( 2 )
-lod_scale = 2.0
 map_scale = Vector3( 2, 1, 2 )
 _terrain_data = ExtResource( 1 )
 chunk_size = 32
@@ -217,39 +216,14 @@ material/0 = null
 transform = Transform( -0.72794, 0, -0.68564, 0, 1, 0, 0.68564, 0, -0.72794, -114.107, 54.7137, -85.3466 )
 
 [node name="Trees" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.7662, 0 )
+script = ExtResource( 5 )
 
-[node name="Tree" parent="Trees" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -118.532, 12.4896, -99.7581 )
-
-[node name="Tree2" parent="Trees" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -130.38, 9.66029, -90.7632 )
-
-[node name="Tree3" parent="Trees" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -130.628, 8.97072, -100.606 )
-
-[node name="Tree4" parent="Trees" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -146.507, 4.58729, -97.2295 )
-
-[node name="Tree5" parent="Trees" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -155.242, 3.38438, -96.1675 )
-
-[node name="Tree6" parent="Trees" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -171.668, 2.82323, -86.5362 )
-
-[node name="Tree7" parent="Trees" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -162.683, 3.02275, -89.8034 )
-
-[node name="Tree8" parent="Trees" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -151.479, 3.14841, -101.63 )
-
-[node name="Tree9" parent="Trees" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -139.702, 3.14841, -117.978 )
+[node name="Bones" type="Spatial" parent="."]
+script = ExtResource( 8 )
 
 [node name="Light God" type="DirectionalLight" parent="."]
 transform = Transform( 0.999591, 0.00572126, -0.0280263, 0.0165397, -0.914997, 0.403121, -0.0233377, -0.40342, -0.914717, 0, 1.7931, 0 )
-
-[node name="Pickup_Object" parent="." instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.89726, 23.9086, 26.8787 )
 
 [node name="World Border" type="StaticBody" parent="."]
 
@@ -258,7 +232,7 @@ mesh = SubResource( 4 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="World Border"]
-shape = SubResource( 5 )
+shape = SubResource( 27 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 7 )
