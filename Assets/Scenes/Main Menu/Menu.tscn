@@ -1,8 +1,141 @@
-[gd_scene format=2]
+[gd_scene load_steps=12 format=2]
 
-[node name="Control" type="Control"]
+[ext_resource path="res://Actors/Ball.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Fonts/Results_Font_01.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Assets/Fonts/RobotoSlab-VariableFont_wght.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/Scenes/Main Menu/Menu.gd" type="Script" id=4]
+[ext_resource path="res://Assets/Textures/floor_tiles_06_1k_jpg/floor_tiles_06.material" type="Material" id=5]
+[ext_resource path="res://Assets/Scenes/Main Menu/Play Tutorial.gd" type="Script" id=6]
+[ext_resource path="res://Assets/Scenes/Main Menu/Play Game.gd" type="Script" id=7]
+[ext_resource path="res://Assets/Scenes/Main Menu/Exit.gd" type="Script" id=8]
+
+[sub_resource type="PlaneMesh" id=1]
+material = ExtResource( 5 )
+size = Vector2( 100, 100 )
+
+[sub_resource type="ConcavePolygonShape" id=2]
+data = PoolVector3Array( 50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 48
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
+
+[node name="Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ball" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.94346, -0.102781, 0.315149, 0, 0.950716, 0.310063, -0.331486, -0.292532, 0.896963, 6.03358, 3.69355, 8.37475 )
+current = true
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 9.33174, 0 )
+spot_range = 36.6187
+spot_angle = 73.8363
+
+[node name="StaticBody" type="StaticBody" parent="."]
+
+[node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+shape = SubResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="TextureRect" type="Label" parent="VBoxContainer"]
+margin_left = 324.0
+margin_right = 699.0
+margin_bottom = 133.0
+size_flags_horizontal = 6
+custom_fonts/font = SubResource( 3 )
+text = "World Recycling
+Service"
+align = 1
+valign = 1
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer"]
+margin_top = 137.0
+margin_right = 1024.0
+margin_bottom = 534.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 1, 1, 1, 0 )
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 538.0
+margin_right = 1024.0
+margin_bottom = 600.0
+custom_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
+margin_left = 364.0
+margin_right = 659.0
+margin_bottom = 42.0
+size_flags_horizontal = 6
+
+[node name="Play Game" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+margin_right = 104.0
+margin_bottom = 42.0
+focus_neighbour_left = NodePath("../Exit")
+focus_neighbour_right = NodePath("../Play Tutorial")
+focus_next = NodePath("../Play Tutorial")
+focus_previous = NodePath("../Exit")
+custom_fonts/font = ExtResource( 2 )
+action_mode = 0
+text = "Play Game"
+script = ExtResource( 7 )
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+margin_left = 108.0
+margin_right = 112.0
+margin_bottom = 42.0
+
+[node name="Play Tutorial" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+margin_left = 116.0
+margin_right = 239.0
+margin_bottom = 42.0
+focus_neighbour_left = NodePath("../Play Game")
+focus_neighbour_right = NodePath("../Exit")
+focus_next = NodePath("../Exit")
+focus_previous = NodePath("../Play Game")
+custom_fonts/font = ExtResource( 2 )
+action_mode = 0
+text = "Play Tutorial"
+script = ExtResource( 6 )
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+margin_left = 243.0
+margin_right = 247.0
+margin_bottom = 42.0
+
+[node name="Exit" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+margin_left = 251.0
+margin_right = 295.0
+margin_bottom = 42.0
+focus_neighbour_left = NodePath("../Play Tutorial")
+focus_neighbour_right = NodePath("../Play Game")
+focus_next = NodePath("../Play Game")
+focus_previous = NodePath("../Play Tutorial")
+custom_fonts/font = ExtResource( 2 )
+action_mode = 0
+text = "Exit"
+script = ExtResource( 8 )
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Play Game" to="VBoxContainer/MarginContainer/HBoxContainer/Play Game" method="_on_Play_Game_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Play Tutorial" to="VBoxContainer/MarginContainer/HBoxContainer/Play Tutorial" method="_on_Play_Tutorial_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Exit" to="VBoxContainer/MarginContainer/HBoxContainer/Exit" method="_on_Exit_pressed"]

@@ -71,7 +71,7 @@ func _physics_process(_delta):
 		self.angular_damp = 0.999999
 	var floor_ray = get_world().direct_space_state.intersect_ray(
 		self.global_transform.origin,
-		self.global_transform.origin + Vector3.DOWN*($CollisionShape.scale.x + floor_ray_dist),
+		self.global_transform.origin + Vector3.DOWN*($CollisionShape.scale.x + desired_size*floor_ray_dist),
 		[self]
 	)
 	if Input.is_action_pressed("player_brake") && !floor_ray.empty():

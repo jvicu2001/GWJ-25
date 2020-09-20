@@ -40,18 +40,19 @@ func _process(delta):
 		else:
 			lose = true
 			$Ball/AnimationPlayer.play("fail_anim")
-			#Lose thingies
-			pass
 		if ($Ball/BallBody.volume >= target_volume) && time_left >= 0:
 			win = true
 			$Ball/AnimationPlayer.play("win_anim")
 	else:
-		$Ball/UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer/TimeLeft.text\
-		= $Ball/UI/Timer/time_left.text
-		$Ball/UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer2/ItemsCollected.text\
-		= str($Ball.items_picked_up)
-		$Ball/UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer5/FinalSize.text\
-		= str($Ball/BallBody.desired_size) + "m"
+		final_values()
+
+func final_values():
+	$Ball/UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer/TimeLeft.text\
+	= $Ball/UI/Timer/time_left.text
+	$Ball/UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer2/ItemsCollected.text\
+	= str($Ball.items_picked_up)
+	$Ball/UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer5/FinalSize.text\
+	= str($Ball/BallBody.desired_size) + "m"
 
 func _on_Ball_ready():
 	$Ball.ball_radius = initial_ball_size

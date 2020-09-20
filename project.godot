@@ -30,6 +30,10 @@ config/name="GWJ25-Ball"
 run/main_scene="res://Assets/Scenes/Main Scene/Game Container.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/stretch/aspect="keep"
+
 [editor_plugins]
 
 enabled=PoolStringArray( "zylann.hterrain" )

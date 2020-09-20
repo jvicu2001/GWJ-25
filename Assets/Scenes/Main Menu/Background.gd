@@ -1,4 +1,4 @@
-extends Button
+extends Sprite
 
 
 # Declare member variables here. Examples:
@@ -14,8 +14,3 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-
-
-func _on_PlayAgain_pressed():
-	$"../../../../../../../AnimationPlayer".play("reset_level_anim")
-	get_tree().get_root().get_node("Game Container").reset_level()

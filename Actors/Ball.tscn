@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Actors/Ball_Player.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Ball_Camera.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Assets/Fonts/Results_Font_01.tres" type="DynamicFont" id=9]
 [ext_resource path="res://Actors/Buttons/PlayAgain.gd" type="Script" id=10]
 [ext_resource path="res://Actors/Buttons/Exit.gd" type="Script" id=11]
+[ext_resource path="res://Actors/Buttons/Menu.gd" type="Script" id=12]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.3, 0.6, 1 )
@@ -20,9 +21,9 @@ colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 gradient = SubResource( 1 )
 
 [sub_resource type="ParticlesMaterial" id=3]
-lifetime_randomness = 0.41
 emission_shape = 2
 emission_box_extents = Vector3( 40, 20, 40 )
+direction = Vector3( 0, 1, 0 )
 gravity = Vector3( 0, 0.4, 0 )
 color_ramp = SubResource( 2 )
 
@@ -40,6 +41,9 @@ size = Vector2( 0.5, 0.5 )
 
 [sub_resource type="SphereMesh" id=7]
 material = ExtResource( 3 )
+
+[sub_resource type="CubeMesh" id=18]
+size = Vector3( 0.4, 0.4, 0.4 )
 
 [sub_resource type="StyleBoxFlat" id=13]
 bg_color = Color( 0.6, 0.6, 0.6, 0.517647 )
@@ -601,9 +605,7 @@ script = ExtResource( 5 )
 [node name="Particles" type="Particles" parent="."]
 amount = 24
 lifetime = 2.0
-randomness = 0.24
 local_coords = false
-draw_order = 1
 process_material = SubResource( 3 )
 draw_pass_1 = SubResource( 5 )
 
@@ -623,6 +625,10 @@ shape = SubResource( 6 )
 mesh = SubResource( 7 )
 material/0 = null
 
+[node name="MeshInstance" type="MeshInstance" parent="BallBody/CollisionShape/MeshInstance"]
+mesh = SubResource( 18 )
+material/0 = null
+
 [node name="Camera Container" type="Spatial" parent="."]
 script = ExtResource( 2 )
 
@@ -631,6 +637,7 @@ transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 2, 5 )
 far = 2000.0
 
 [node name="ColorRect" type="ColorRect" parent="Camera Container"]
+visible = false
 material = ExtResource( 6 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -848,6 +855,7 @@ focus_previous = NodePath("../PlayAgain")
 custom_fonts/font = ExtResource( 9 )
 action_mode = 0
 text = "Menu"
+script = ExtResource( 12 )
 
 [node name="Exit" type="Button" parent="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer4"]
 margin_left = 204.0
@@ -910,4 +918,5 @@ anims/reset_default = SubResource( 12 )
 anims/reset_level_anim = SubResource( 16 )
 anims/win_anim = SubResource( 11 )
 [connection signal="pressed" from="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer4/PlayAgain" to="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer4/PlayAgain" method="_on_PlayAgain_pressed"]
+[connection signal="pressed" from="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer4/Menu" to="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer4/Menu" method="_on_Menu_pressed"]
 [connection signal="pressed" from="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer4/Exit" to="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer4/Exit" method="_on_Exit_pressed"]

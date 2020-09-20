@@ -16,6 +16,6 @@ func _ready():
 #	pass
 
 
-func _on_PlayAgain_pressed():
-	$"../../../../../../../AnimationPlayer".play("reset_level_anim")
-	get_tree().get_root().get_node("Game Container").reset_level()
+func _on_Menu_pressed():
+	get_tree().get_root().get_node("Game Container").go_to_menu()
+	pass # Replace with function body.

@@ -1,9 +1,10 @@
-extends Button
+extends Area
 
 
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+onready var level = $"../.."
 
 
 # Called when the node enters the scene tree for the first time.
@@ -16,6 +17,7 @@ func _ready():
 #	pass
 
 
-func _on_PlayAgain_pressed():
-	$"../../../../../../../AnimationPlayer".play("reset_level_anim")
-	get_tree().get_root().get_node("Game Container").reset_level()
+func _on_Lava_body_entered(body):
+	if body.name == "BallBody":
+		level.final_values()
+		body.get_parent().get_node("AnimationPlayer").play("fail_anim")
