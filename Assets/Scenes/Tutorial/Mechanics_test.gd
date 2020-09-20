@@ -28,9 +28,9 @@ func _process(delta):
 					"\ny: " + str(velocity.y) +\
 					"\nz: " + str(velocity.z) +\
 					"\nvelocity: " + str(velocity.length()) +\
-					"\n\nFPS:" + str(1/delta) +\
 					"\n\nBall radius: " + str($Ball/BallBody/CollisionShape.scale.x) +\
 					"\nBall volume: " + str($Ball/BallBody.volume) +\
+					"\nBall desired radius: " + str($Ball/BallBody.desired_size) +\
 					"\n\nCamera angle: " + str($Ball/BallBody.mov_angle)
 	pass
 
