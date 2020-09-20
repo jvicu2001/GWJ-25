@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Loop_Bajos_Tutorial.ogg-405a92c4f312dc0e2024b6abdf7642ee.oggstr"
+
+[deps]
+
+source_file="res://Assets/Music/Loop_Bajos_Tutorial.ogg"
+dest_files=[ "res://.import/Loop_Bajos_Tutorial.ogg-405a92c4f312dc0e2024b6abdf7642ee.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

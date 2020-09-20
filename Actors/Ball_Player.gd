@@ -16,7 +16,7 @@ onready var volume = radius2volume($CollisionShape.scale.x)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
 
 # Simple functions to get the volume of the ball from the radius and viceversa
@@ -31,7 +31,7 @@ func volume2radius(vol):
 func rot_matrix_y(vector, angle):
 	return Vector3(vector.x*cos(angle) -vector.z*sin(angle), vector.y, vector.x*sin(angle) + vector.z*cos(angle))
 
-func _input(event):
+func _input(_event):
 	mov_input = Vector2(Input.get_action_strength("player_right")
 						- Input.get_action_strength("player_left"),
 						Input.get_action_strength("player_backwards")
@@ -46,6 +46,7 @@ func pickup(item):
 		self.mass = self.volume
 #		$CollisionShape.scale += item.size*Vector3.ONE
 		item.queue_free()
+		$"..".items_picked_up += 1
 	pass
 
 # lerp the ball size between the actual one and the goal size
@@ -55,11 +56,10 @@ func resize():
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process_(_delta):
 	resize()
-	pass
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if mov_input != Vector2():
 		self.angular_damp = 0.1
 		var rotated_mov = rot_matrix_y(Vector3(mov_input.x, 0, mov_input.y), mov_angle)
@@ -76,6 +76,7 @@ func _physics_process(delta):
 	)
 	if Input.is_action_pressed("player_brake") && !floor_ray.empty():
 		self.linear_damp = 0.99999
+		self.angular_damp = 0.999999
 	else:
 		self.linear_damp = 0
 	pass

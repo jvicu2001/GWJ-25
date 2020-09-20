@@ -16,6 +16,11 @@ var position_arr = []
 
 onready var tree_scene = load("res://Actors/Pickups/tree_01.tscn")
 
+onready var tree_model_01 = preload("res://Assets/Objects/Trees/tree_base.obj")
+onready var tree_model_02 = preload("res://Assets/Objects/Trees/tree_pine.obj")
+
+var tree_models = [tree_model_01, tree_model_02]
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,12 +29,14 @@ func _ready():
 #		place_objects()
 	pass # Replace with function body.
 
+
 func place_objects():
 	randomize()
 	var space = get_world().direct_space_state
-	for tree in range(trees_to_spawn):
+	for _tree in range(trees_to_spawn):
 		var tree_ins = tree_scene.instance()
 		self.add_child(tree_ins)
+#		tree_ins.get_node("Model").set_mesh(tree_models[randi()%(tree_models.size())])
 		tree_ins.rotate_y(rand_range(0.0,6.2))
 		var valid = false
 		while !valid:

@@ -21,7 +21,7 @@ var buffer_angle = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-	$Tutorial_text.text = "Welcome, worker n°" + str(randi() % 16777216)
+	$Tutorial_text.text = "Welcome, worker N° " + str(randi() % 16777216)
 	$AnimationPlayer.play("intro_01")
 
 func check_conditions_met(condition):
@@ -41,7 +41,7 @@ func check_conditions_met(condition):
 				current_condition = ""
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	check_conditions_met(current_condition)
 
 

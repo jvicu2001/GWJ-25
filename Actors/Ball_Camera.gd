@@ -78,7 +78,7 @@ func get_yaw_angle():
 		self.yaw_angle = lerp(self.yaw_angle, self.yaw_base_angle, 0.2)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	cam_mode_check()
 	if Input.is_action_pressed("player_camera_left") || Input.is_action_pressed("player_camera_right"):
 		var cam_pan = Input.get_action_strength("player_camera_right") - Input.get_action_strength("player_camera_left")

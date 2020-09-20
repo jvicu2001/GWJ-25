@@ -5,16 +5,16 @@ extends Spatial
 # var a = 2
 # var b = "text"
 var def_height = 100
-var to_spawn = 300
-var safe_distance = 1
+var to_spawn = 20
+var safe_distance = 30
 var ray_lenght = 800
 
-var min_height = -5
-var max_height = 80
+var min_height = 5
+var max_height = 50
 
 var position_arr = []
 
-onready var object_scene = load("res://Actors/Pickups/BonePile1.tscn")
+onready var object_scene = load("res://Actors/Pickups/House_s_broken.tscn")
 
 
 # Called when the node enters the scene tree for the first time.

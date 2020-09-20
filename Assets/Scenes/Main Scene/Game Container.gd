@@ -23,6 +23,17 @@ func change_to_game():
 	add_child(game_world_instance)
 	$Transition/AnimationPlayer.play("fade_out")
 
+func reset_level():
+	$Transition/AnimationPlayer.play("fade_in")
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "fade_in":	# reset_level() continuation
+		game_world_instance.queue_free()
+		game_world_instance = game_world.instance()
+		add_child(game_world_instance)
+		$Transition/AnimationPlayer.play("fade_out")

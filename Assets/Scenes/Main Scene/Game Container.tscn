@@ -1,6 +1,22 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/Scenes/Main Scene/Game Container.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Scenes/Tutorial/Space_WEnv.tres" type="Environment" id=2]
+
+[sub_resource type="Animation" id=2]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=1]
 resource_name = "fade_out"
@@ -30,6 +46,12 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Transition"]
+anims/fade_in = SubResource( 2 )
 anims/fade_out = SubResource( 1 )
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -5.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 2 )
+[connection signal="animation_finished" from="Transition/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

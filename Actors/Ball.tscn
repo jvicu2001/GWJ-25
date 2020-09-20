@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Actors/Ball_Player.gd" type="Script" id=1]
 [ext_resource path="res://Actors/Ball_Camera.gd" type="Script" id=2]
@@ -6,14 +6,606 @@
 [ext_resource path="res://Assets/Materials/Ball/Normal/ball_normal.phymat" type="PhysicsMaterial" id=4]
 [ext_resource path="res://Actors/Ball.gd" type="Script" id=5]
 [ext_resource path="res://Assets/Materials/Water/underwater_shader.material" type="Material" id=6]
+[ext_resource path="res://Assets/Fonts/Oswald-Regular.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Assets/Textures/Particles/EarthSpirit.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Fonts/Results_Font_01.tres" type="DynamicFont" id=9]
+[ext_resource path="res://Actors/Buttons/PlayAgain.gd" type="Script" id=10]
+[ext_resource path="res://Actors/Buttons/Exit.gd" type="Script" id=11]
 
-[sub_resource type="SphereShape" id=1]
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.3, 0.6, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="SphereMesh" id=2]
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+lifetime_randomness = 0.41
+emission_shape = 2
+emission_box_extents = Vector3( 40, 20, 40 )
+gravity = Vector3( 0, 0.4, 0 )
+color_ramp = SubResource( 2 )
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_transparent = true
+flags_unshaded = true
+params_billboard_mode = 1
+albedo_texture = ExtResource( 8 )
+
+[sub_resource type="QuadMesh" id=5]
+material = SubResource( 4 )
+size = Vector2( 0.5, 0.5 )
+
+[sub_resource type="SphereShape" id=6]
+
+[sub_resource type="SphereMesh" id=7]
 material = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 0.6, 0.6, 0.6, 0.517647 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="DynamicFont" id=14]
+size = 32
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=15]
+size = 64
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 24
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 38
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 20
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 7 )
+
+[sub_resource type="Animation" id=17]
+resource_name = "fail_anim"
+length = 7.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("BallBody:mode")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("UI/Timer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("UI/size_Label:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("UI/ResultContainer:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer2:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 3, 4.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("UI/ResultContainer/Panel/Results/VBoxContainer/HSeparator:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("UI/ResultContainer:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("UI/Timer:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("UI/size_Label:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer3:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 5, 6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer4:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 6, 7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer3/Label:text")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 4.6 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Try harder next time!" ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("UI/ResultContainer/Panel/Results/VBoxContainer/HSeparator:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("UI/ResultContainer/Panel/Results/VBoxContainer/HSeparator2:visible")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer5:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer5:modulate")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/17/type = "method"
+tracks/17/path = NodePath("UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer4/PlayAgain")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 6 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "grab_focus"
+} ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "reset_default"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BallBody:mode")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("UI/PauseBG:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("UI/Timer:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("UI/size_Label:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("UI/ResultContainer:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("UI:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "reset_level_anim"
+tracks/0/type = "value"
+tracks/0/path = NodePath("UI:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("UI:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=11]
+length = 7.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("BallBody:mode")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("UI/Timer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("UI/size_Label:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("UI/ResultContainer:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer2:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 3, 4.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("UI/ResultContainer/Panel/Results/VBoxContainer/HSeparator:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("UI/ResultContainer:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("UI/Timer:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("UI/size_Label:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer3:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 5, 6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer4:modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 6, 7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer3/Label:text")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 4.6 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Thank you for playing!" ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer5:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/14/type = "method"
+tracks/14/path = NodePath("UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer4/PlayAgain")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 6 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "grab_focus"
+} ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [node name="Ball" type="Spatial"]
 script = ExtResource( 5 )
+
+[node name="Particles" type="Particles" parent="."]
+amount = 24
+lifetime = 2.0
+randomness = 0.24
+local_coords = false
+draw_order = 1
+process_material = SubResource( 3 )
+draw_pass_1 = SubResource( 5 )
 
 [node name="BallBody" type="RigidBody" parent="." groups=[
 "player",
@@ -25,10 +617,10 @@ angular_damp = 0.0
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="BallBody"]
-shape = SubResource( 1 )
+shape = SubResource( 6 )
 
 [node name="MeshInstance" type="MeshInstance" parent="BallBody/CollisionShape"]
-mesh = SubResource( 2 )
+mesh = SubResource( 7 )
 material/0 = null
 
 [node name="Camera Container" type="Spatial" parent="."]
@@ -45,3 +637,277 @@ anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="UI" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PauseBG" type="ColorRect" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 1, 1, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResultContainer" type="MarginContainer" parent="UI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 60
+custom_constants/margin_top = 60
+custom_constants/margin_left = 60
+custom_constants/margin_bottom = 60
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="UI/ResultContainer"]
+margin_left = 60.0
+margin_top = 60.0
+margin_right = 964.0
+margin_bottom = 540.0
+custom_styles/panel = SubResource( 13 )
+
+[node name="Results" type="VBoxContainer" parent="UI/ResultContainer/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UI/ResultContainer/Panel/Results"]
+margin_right = 904.0
+margin_bottom = 49.0
+custom_fonts/font = SubResource( 14 )
+text = "Results"
+align = 1
+valign = 1
+
+[node name="HSeparator" type="HSeparator" parent="UI/ResultContainer/Panel/Results"]
+margin_top = 53.0
+margin_right = 904.0
+margin_bottom = 57.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ResultContainer/Panel/Results"]
+margin_top = 61.0
+margin_right = 904.0
+margin_bottom = 480.0
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/ResultContainer/Panel/Results/VBoxContainer"]
+margin_right = 904.0
+margin_bottom = 36.0
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer"]
+margin_left = 380.0
+margin_right = 458.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 9 )
+text = "Time left"
+valign = 1
+
+[node name="VSeparator" type="VSeparator" parent="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer"]
+margin_left = 462.0
+margin_right = 466.0
+margin_bottom = 36.0
+
+[node name="TimeLeft" type="Label" parent="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer"]
+margin_left = 470.0
+margin_right = 523.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 9 )
+text = "00:00"
+align = 2
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="UI/ResultContainer/Panel/Results/VBoxContainer"]
+visible = false
+margin_right = 904.0
+margin_bottom = 36.0
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer5"]
+margin_left = 398.0
+margin_right = 481.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 9 )
+text = "Final Size"
+valign = 1
+
+[node name="VSeparator" type="VSeparator" parent="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer5"]
+margin_left = 485.0
+margin_right = 489.0
+margin_bottom = 36.0
+
+[node name="FinalSize" type="Label" parent="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer5"]
+margin_left = 493.0
+margin_right = 505.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 9 )
+text = "0"
+align = 2
+
+[node name="HSeparator" type="HSeparator" parent="UI/ResultContainer/Panel/Results/VBoxContainer"]
+visible = false
+margin_top = 40.0
+margin_right = 904.0
+margin_bottom = 44.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/ResultContainer/Panel/Results/VBoxContainer"]
+margin_top = 40.0
+margin_right = 904.0
+margin_bottom = 76.0
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer2"]
+margin_left = 372.0
+margin_right = 508.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 9 )
+text = "Items Collected"
+valign = 1
+
+[node name="VSeparator" type="VSeparator" parent="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer2"]
+margin_left = 512.0
+margin_right = 516.0
+margin_bottom = 36.0
+
+[node name="ItemsCollected" type="Label" parent="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer2"]
+margin_left = 520.0
+margin_right = 532.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 9 )
+text = "0"
+align = 2
+
+[node name="HSeparator2" type="HSeparator" parent="UI/ResultContainer/Panel/Results/VBoxContainer"]
+margin_top = 80.0
+margin_right = 904.0
+margin_bottom = 84.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="UI/ResultContainer/Panel/Results/VBoxContainer"]
+margin_top = 88.0
+margin_right = 904.0
+margin_bottom = 184.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer3"]
+margin_right = 904.0
+margin_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 15 )
+text = "Thank you for playing!"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="UI/ResultContainer/Panel/Results/VBoxContainer"]
+margin_left = 328.0
+margin_top = 282.0
+margin_right = 576.0
+margin_bottom = 324.0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+custom_constants/separation = 20
+
+[node name="PlayAgain" type="Button" parent="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer4"]
+margin_right = 104.0
+margin_bottom = 42.0
+focus_neighbour_left = NodePath("../Exit")
+focus_neighbour_right = NodePath("../Menu")
+focus_next = NodePath("../Menu")
+focus_previous = NodePath("../Exit")
+custom_fonts/font = ExtResource( 9 )
+action_mode = 0
+text = "Play Again"
+script = ExtResource( 10 )
+
+[node name="Menu" type="Button" parent="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer4"]
+margin_left = 124.0
+margin_right = 184.0
+margin_bottom = 42.0
+focus_neighbour_left = NodePath("../PlayAgain")
+focus_neighbour_right = NodePath("../Exit")
+focus_next = NodePath("../Exit")
+focus_previous = NodePath("../PlayAgain")
+custom_fonts/font = ExtResource( 9 )
+action_mode = 0
+text = "Menu"
+
+[node name="Exit" type="Button" parent="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer4"]
+margin_left = 204.0
+margin_right = 248.0
+margin_bottom = 42.0
+focus_neighbour_left = NodePath("../Menu")
+focus_neighbour_right = NodePath("../PlayAgain")
+focus_next = NodePath("../PlayAgain")
+focus_previous = NodePath("../Menu")
+custom_fonts/font = ExtResource( 9 )
+action_mode = 0
+text = "Exit"
+script = ExtResource( 11 )
+
+[node name="Timer" type="VBoxContainer" parent="UI"]
+anchor_right = 1.0
+margin_bottom = 105.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="time_left_text" type="Label" parent="UI/Timer"]
+margin_right = 1024.0
+margin_bottom = 36.0
+custom_fonts/font = SubResource( 8 )
+text = "Time left"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="time_left" type="Label" parent="UI/Timer"]
+margin_top = 40.0
+margin_right = 1024.0
+margin_bottom = 97.0
+custom_fonts/font = SubResource( 9 )
+text = "00:00"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="size_Label" type="Label" parent="UI"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -91.0
+margin_right = 280.0
+custom_fonts/font = SubResource( 10 )
+text = "Goal size: 5m
+Current size: 0.1m"
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/fail_anim = SubResource( 17 )
+anims/reset_default = SubResource( 12 )
+anims/reset_level_anim = SubResource( 16 )
+anims/win_anim = SubResource( 11 )
+[connection signal="pressed" from="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer4/PlayAgain" to="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer4/PlayAgain" method="_on_PlayAgain_pressed"]
+[connection signal="pressed" from="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer4/Exit" to="UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer4/Exit" method="_on_Exit_pressed"]

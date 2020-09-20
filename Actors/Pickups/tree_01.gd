@@ -1,4 +1,4 @@
-extends KinematicBody
+extends StaticBody
 
 
 # Declare member variables here. Examples:
@@ -9,6 +9,7 @@ var volume = 2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 #	place_on_floor()
 	pass # Replace with function body.
 

@@ -11,10 +11,10 @@ data = PoolVector3Array( 0.135, 0, -0.03, -0.135, 0, -0.03, 0.135, -0.0285, -0.0
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.107441, 0.217897, 0.185999 )
 
-[node name="BonePile1" type="KinematicBody"]
+[node name="BonePile1" type="StaticBody"]
 script = ExtResource( 2 )
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
+[node name="Model" type="MeshInstance" parent="."]
 mesh = ExtResource( 3 )
 material/0 = ExtResource( 4 )
 

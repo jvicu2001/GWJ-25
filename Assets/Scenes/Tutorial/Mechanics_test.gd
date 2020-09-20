@@ -6,12 +6,19 @@ extends Spatial
 # var b = "text"
 var velocity = Vector3()
 
-const initial_ball_size = 0.2
+var level = false
 
+const initial_ball_size = 0.2
+onready var music = preload("res://Assets/Music/Loop_Bajos_Tutorial.ogg")
+
+onready var env = preload("res://Assets/Scenes/Tutorial/Space_WEnv.tres")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$"../WorldEnvironment".set_environment(env)
+	$Ball/AnimationPlayer.play("reset_default")
+	$"../MusicPlayer".set_stream(music)
+	$"../MusicPlayer".play()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
