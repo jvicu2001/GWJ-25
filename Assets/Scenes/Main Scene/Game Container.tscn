@@ -3,7 +3,7 @@
 [ext_resource path="res://Assets/Scenes/Main Scene/Game Container.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Scenes/Tutorial/Space_WEnv.tres" type="Environment" id=2]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "fade_in"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:color")
@@ -18,8 +18,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "fade_out"
+[sub_resource type="Animation" id=2]
 length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:color")
@@ -46,8 +45,8 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Transition"]
-anims/fade_in = SubResource( 2 )
-anims/fade_out = SubResource( 1 )
+anims/fade_in = SubResource( 1 )
+anims/fade_out = SubResource( 2 )
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 volume_db = -5.0
