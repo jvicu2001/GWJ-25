@@ -8,17 +8,22 @@ export_presets.cfg
 .mono/
 data_*/
 
-# Godot Github Integration ignore
-addons/github-integration
+# addons ignore
+addons/
 
 # Compressed Assets
 *.zip
 
 # Blender files ignore
-Assets/Blender/	
+Assets/Blender/
+*.blend
+*.blend1
 
 # Builds files ignore
 Builds/
 
 # Exclude pdn files
 *.pdn
+
+# Ignore android stuff
+android/
