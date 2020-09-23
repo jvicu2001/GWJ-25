@@ -52,7 +52,7 @@ func final_values():
 	$Ball/UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer2/ItemsCollected.text\
 	= str($Ball.items_picked_up)
 	$Ball/UI/ResultContainer/Panel/Results/VBoxContainer/HBoxContainer5/FinalSize.text\
-	= str($Ball/BallBody.desired_size) + "m"
+	= str($Ball/BallBody.desired_size*2) + "m"
 
 func _on_Ball_ready():
 	$Ball.ball_radius = initial_ball_size
